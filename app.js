@@ -1,5 +1,5 @@
 const loadBtn = document.querySelector("#loadBtn");
-const container = document.querySelector("#postContainer");
+const postContainer = document.querySelector("#postContainer");
 
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
 
@@ -16,12 +16,31 @@ async function fetchPosts() {
   return posts;
 }
 
+function renderPosts(posts) {
+  postContainer.innerHTML = ""; // remove content of unordered list including elements, not just text
+
+  const selectedPosts = posts
+		.sort(() => 0.5 - Math.random())
+		.slice(0, 5); // get 5 random posts
+
+  for (const post of selectedPosts) {
+    const li = document.createElement("li"); 
+
+    const title = document.createElement("h3");
+    title.textContent = post.title;
+
+    const body = document.createElement("p");
+    body.textContent = post.body;
+
+    li.appendChild(title);
+    li.appendChild(body);
+    postContainer.appendChild(li);
+  }
+}
+
 async function loadPosts() {
 	const posts = await fetchPosts();
-
-	// for testing
-	// console.table(posts);
-	// postContainer.textContent = JSON.stringify(posts, null, 2);
+	renderPosts(posts);
 }
 
 loadBtn.addEventListener('click', loadPosts);
