@@ -7,9 +7,8 @@ const API_URL = "https://jsonplaceholder.typicode.com/posts";
 async function fetchPosts() {
   const response = await fetch(API_URL);
 
-	// TODO: handle error
 	if (!response.ok) { // give nothing if error
-		return [];
+		throw new Error(`Failed to Fetch: ${response.status}: ${response.statusText}`);
 	}
 
   const posts = await response.json();
@@ -44,9 +43,17 @@ async function loadPosts() {
 	status.textContent = "Loading...";
 
 	try {
-		const posts = await fetchPosts();
+		let posts = await fetchPosts();
+		// posts = []; // test for empty result
+
+		if (posts.length === 0) {
+			throw new Error("No posts available!");
+		}
+
 		renderPosts(posts);
 		status.textContent = "Posts loaded!";
+	} catch (error) {
+		status.textContent = `Error: ${error.message}`;
 	} finally {
 		loadBtn.disabled = false;
 	}
