@@ -1,4 +1,5 @@
 const loadBtn = document.querySelector("#loadBtn");
+const status = document.querySelector("#status");
 const postContainer = document.querySelector("#postContainer");
 
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
@@ -39,8 +40,16 @@ function renderPosts(posts) {
 }
 
 async function loadPosts() {
-	const posts = await fetchPosts();
-	renderPosts(posts);
+	loadBtn.disabled = true;
+	status.textContent = "Loading...";
+
+	try {
+		const posts = await fetchPosts();
+		renderPosts(posts);
+		status.textContent = "Posts loaded!";
+	} finally {
+		loadBtn.disabled = false;
+	}
 }
 
 loadBtn.addEventListener('click', loadPosts);
