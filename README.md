@@ -1,7 +1,7 @@
 # Build a Dynamic Post Explorer
 
 <p align="center">
-  <img src="https://laverdad.edu.ph/wp-content/uploads/2021/08/LVCC-Logo.png" alt="La Verdad Christian College Logo" width="120"/>
+  <img src="https://laverdad.edu.ph/assets/images/lvcc-new-logo-transparent.PNG" alt="La Verdad Christian College Logo" width="120"/>
 </p>
 
 This simple web application uses HTML, CSS, and JavaScript to fetch blog posts from JSONPlaceholder and display them on the page without reloading the browser.
